@@ -46,7 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   void _gamePage() {
     setState(() {
       Navigator.push(
@@ -60,7 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MySettingsPage(title: 'Settings')),
+        MaterialPageRoute(
+          builder: (context) => MySettingsPage(title: 'Settings')
+        ),
       );
     });
   }
@@ -69,7 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MyControlsPage(title: 'Controls')),
+        MaterialPageRoute(
+            builder: (context) => MyControlsPage(title: 'Controls')
+        ),
       );
     });
   }
@@ -120,7 +123,6 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -141,7 +143,6 @@ class MyControlsPage extends StatefulWidget {
 }
 
 class _MyControlsPageState extends State<MyControlsPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,7 +163,6 @@ class MySettingsPage extends StatefulWidget {
 }
 
 class _MySettingsPageState extends State<MySettingsPage> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,4 +172,3 @@ class _MySettingsPageState extends State<MySettingsPage> {
     );
   }
 }
-

@@ -115,6 +115,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  num_to_words:
+    dependency: "direct main"
+    description:
+      name: num_to_words
+      sha256: "4cca14f847253e29864f05c325734e334775e89398e082521a77086271d12722"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path:
     dependency: transitive
     description:
