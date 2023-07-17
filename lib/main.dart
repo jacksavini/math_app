@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+import 'package:math_app/card.dart';
 
 void main() {
   runApp(MyApp());
@@ -87,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'Game Logo Here',
             ),
             ElevatedButton(
@@ -123,12 +126,69 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Game'),
       ),
+      backgroundColor: Colors.red[700],
+      body: const Center(
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(flex:3),
+            MainNumCard(inText: "7",),
+            Spacer(flex:2),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Spacer(),
+                NumCard(inText: "3",),
+                Spacer(),
+                OpCard(),
+                Spacer(),
+                NumCard(inText: "4",),
+                Spacer()
+              ],
+            ),
+            Spacer(flex:4),
+            Column(
+              //mainAxisAlignment: MainAxisAlignment.center, 
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center, 
+                  children: [
+                    OpButton(inText: "-",),
+                    SizedBox(
+                      height:20,
+                      width:20
+                    ),
+                    OpButton(inText: "+",),
+                  ],
+                ),
+                SizedBox(
+                  height:20,
+                  width:20
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center, 
+                  children: [
+                    OpButton(inText: "x",),
+                    SizedBox(
+                      height:20,
+                      width:20
+                    ),
+                    OpButton(inText: "÷",)
+                  ],
+                )
+              ]
+            ),
+            Spacer(flex:3),
+          ]
+        ),
+      )
     );
   }
 }
