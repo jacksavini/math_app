@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 var op = "-";
 
@@ -63,14 +64,9 @@ class MainNumCard extends StatelessWidget {
   }
 }
 
-class OpCard extends StatefulWidget {
-  const OpCard({super.key});
-
-  State<OpCard> createState() => _OpCardState();
-}
-
-class _OpCardState extends State<OpCard> {
-  final ValueNotifier<String> inText = ValueNotifier<String>(op);
+class OpCard extends StatelessWidget {
+  final inText;
+  const OpCard({super.key, required this.inText});
 
   Widget build(BuildContext context) {
     return Container(
@@ -87,7 +83,7 @@ class _OpCardState extends State<OpCard> {
       child: Container(
         alignment: Alignment.center,
         child: Text(
-          op,
+          inText,
           style: const TextStyle(
             fontSize: 40, 
             fontWeight: FontWeight.w800
@@ -98,17 +94,12 @@ class _OpCardState extends State<OpCard> {
   }
 }
 
-class OpButton extends StatefulWidget {
+class OpButton extends StatelessWidget {
   
   const OpButton({super.key, required this.inText, required this.tapDown});
   final String inText;
   final Function tapDown;
 
-  @override
-  State<OpButton> createState() => _OpButtonState();
-}
-
-class _OpButtonState extends State<OpButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -126,7 +117,7 @@ class _OpButtonState extends State<OpButton> {
         child: Container(
           alignment: Alignment.center,
           child: Text(
-            widget.inText,
+            inText,
             style: const TextStyle(
               fontSize: 50, 
               fontWeight: FontWeight.w800,
@@ -136,7 +127,8 @@ class _OpButtonState extends State<OpButton> {
         )
       ),
       onTap: () {
-        op = widget.inText;
+        op = inText;
+        this.tapDown();
         print(op);
       },
     );

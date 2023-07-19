@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
-
 import 'package:math_app/card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   runApp(MyApp());
@@ -126,14 +125,19 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
-  callBack() {
-    setState(() {op = "L";});
-  }
-
-  OpCard oc = new OpCard();
-
+  var op1 = "-";
+  var mainNum = "7";
+  var num1 = "3";
+  var num2 = "4";
   @override
   Widget build(BuildContext context) {
+    
+    callBack() {
+      setState(() {
+        op1 = op;
+      });
+    }
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Game'),
@@ -144,17 +148,17 @@ class _MyGamePageState extends State<MyGamePage> {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex:3),
-            MainNumCard(inText: "7",),
+            MainNumCard(inText: mainNum,),
             Spacer(flex:2),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Spacer(),
-                NumCard(inText: "3",),
+                NumCard(inText: num1,),
                 Spacer(),
-                OpCard(),
+                OpCard(inText: op1),
                 Spacer(),
-                NumCard(inText: "4",),
+                NumCard(inText: num2,),
                 Spacer()
               ],
             ),
