@@ -126,6 +126,11 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
+  callBack() {
+    setState(() {op = "L";});
+  }
+
+  OpCard oc = new OpCard();
 
   @override
   Widget build(BuildContext context) {
@@ -134,14 +139,14 @@ class _MyGamePageState extends State<MyGamePage> {
         title: const Text('Game'),
       ),
       backgroundColor: Colors.red[700],
-      body: const Center(
+      body: Center(
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex:3),
             MainNumCard(inText: "7",),
             Spacer(flex:2),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Spacer(),
@@ -159,13 +164,19 @@ class _MyGamePageState extends State<MyGamePage> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center, 
-                  children: [
-                    OpButton(inText: "-",),
+                  children: <Widget>[
+                    OpButton(
+                      inText: "-",
+                      tapDown: (){ callBack(); }
+                    ),
                     SizedBox(
                       height:20,
                       width:20
                     ),
-                    OpButton(inText: "+",),
+                    OpButton(
+                      inText: "+",
+                      tapDown: (){ callBack(); }
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -175,12 +186,18 @@ class _MyGamePageState extends State<MyGamePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center, 
                   children: [
-                    OpButton(inText: "x",),
+                    OpButton(
+                      inText: "x",
+                      tapDown: (){ callBack(); }
+                    ),
                     SizedBox(
                       height:20,
                       width:20
                     ),
-                    OpButton(inText: "÷",)
+                    OpButton(
+                      inText: "/",
+                      tapDown: (){ callBack(); }
+                    ),
                   ],
                 )
               ]
@@ -188,6 +205,7 @@ class _MyGamePageState extends State<MyGamePage> {
             Spacer(flex:3),
           ]
         ),
+      
       )
     );
   }

@@ -70,13 +70,7 @@ class OpCard extends StatefulWidget {
 }
 
 class _OpCardState extends State<OpCard> {
-  var inText = "-";
-
-  void _chageOp(){
-    setState(() {
-      inText = op;
-    });
-  }
+  final ValueNotifier<String> inText = ValueNotifier<String>(op);
 
   Widget build(BuildContext context) {
     return Container(
@@ -93,7 +87,7 @@ class _OpCardState extends State<OpCard> {
       child: Container(
         alignment: Alignment.center,
         child: Text(
-          inText,
+          op,
           style: const TextStyle(
             fontSize: 40, 
             fontWeight: FontWeight.w800
@@ -104,10 +98,17 @@ class _OpCardState extends State<OpCard> {
   }
 }
 
-class OpButton extends StatelessWidget {
-  const OpButton({super.key, required this.inText});
+class OpButton extends StatefulWidget {
+  
+  const OpButton({super.key, required this.inText, required this.tapDown});
   final String inText;
+  final Function tapDown;
 
+  @override
+  State<OpButton> createState() => _OpButtonState();
+}
+
+class _OpButtonState extends State<OpButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -125,7 +126,7 @@ class OpButton extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           child: Text(
-            inText,
+            widget.inText,
             style: const TextStyle(
               fontSize: 50, 
               fontWeight: FontWeight.w800,
@@ -135,8 +136,8 @@ class OpButton extends StatelessWidget {
         )
       ),
       onTap: () {
-        op = inText;
-        print(inText);
+        op = widget.inText;
+        print(op);
       },
     );
   }
