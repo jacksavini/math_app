@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:math_app/card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:math';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
+}
+
+Future<int> delayedNumber() async {
+  
+  return 2;
 }
 
 class MyApp extends StatelessWidget {
@@ -123,8 +129,6 @@ class _MyGamePageState extends State<MyGamePage> {
   var mainNum = 0;
 
   Widget build(BuildContext context) {
-    mainNum = num1 + num2;
-
     String n1 = num1.toString();
     String n2 = num2.toString();
     String mn = mainNum.toString();
@@ -141,7 +145,6 @@ class _MyGamePageState extends State<MyGamePage> {
     }
 
     void reset() {  
-
       int rng = Random().nextInt(2);
 
       if(rng == 0){
@@ -162,7 +165,13 @@ class _MyGamePageState extends State<MyGamePage> {
       op = "";
     }
 
+    // Future<void> delayRound() async {
+    //   await Future.delayed(const Duration(seconds: 2));
+    //   reset();
+    // }
+
     void callBack() {
+      print(op);
       setState(() {
         if(checkWin() == true){
           reset();
