@@ -123,16 +123,17 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
-  @override
-  var num1 = Random().nextInt(10);
-  var num2 = Random().nextInt(10);
-  var mainNum = 0;
+  var num1 = 1;
+  var num2 = 1;
+  var mainNum = 2;
+
+  String n1 = "1";
+  String n2 = "1";
+  String mn = "2";
+
+  Color bgCol = Color.fromARGB(255, 211, 47, 47);
 
   Widget build(BuildContext context) {
-    String n1 = num1.toString();
-    String n2 = num2.toString();
-    String mn = mainNum.toString();
-
     bool checkWin() {
       if((op == "+") && (mainNum==num1+num2)){
         return true;
@@ -148,8 +149,8 @@ class _MyGamePageState extends State<MyGamePage> {
       int rng = Random().nextInt(2);
 
       if(rng == 0){
-        num1 = Random().nextInt(10);
-        num2 = Random().nextInt(num1);
+        num1 = Random().nextInt(9) + 1;
+        num2 = Random().nextInt(num1)+1;
         mainNum = num1 - num2;
       }
 
@@ -162,19 +163,25 @@ class _MyGamePageState extends State<MyGamePage> {
       n1 = num1.toString();
       n2 = num2.toString();
       mn = mainNum.toString();
-      op = "";
+      op = " ";
     }
-
-    // Future<void> delayRound() async {
-    //   await Future.delayed(const Duration(seconds: 2));
-    //   reset();
-    // }
 
     void callBack() {
       print(op);
       setState(() {
         if(checkWin() == true){
-          reset();
+          setState(() {
+            bgCol = Color.fromARGB(255, 27, 171, 27);
+          });
+
+          Future.delayed(const Duration(milliseconds: 500), () {
+          // Here you can write your code
+            setState(() {
+              bgCol = Color.fromARGB(255, 211, 47, 47);
+              reset();
+              // Here you can write your code for open new view
+            });
+          });
         }
       });
     }
@@ -183,23 +190,23 @@ class _MyGamePageState extends State<MyGamePage> {
       appBar: AppBar(
         title: const Text('Game'),
       ),
-      backgroundColor: Colors.red[700],
+      backgroundColor: bgCol,
       body: Center(
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex:3),
-            MainNumCard(inText: mn,),
+            MainNumCard(inText: mainNum.toString(),),
             Spacer(flex:2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Spacer(),
-                NumCard(inText: n1,),
+                NumCard(inText: num1.toString(),),
                 Spacer(),
                 OpCard(inText: op),
                 Spacer(),
-                NumCard(inText: n2,),
+                NumCard(inText: num2.toString(),),
                 Spacer()
               ],
             ),
