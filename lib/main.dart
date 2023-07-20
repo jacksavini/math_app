@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/card.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:num_to_words/num_to_words.dart';
 import 'dart:math';
 import 'dart:async';
 
@@ -9,7 +9,6 @@ void main() {
 }
 
 Future<int> delayedNumber() async {
-  
   return 2;
 }
 
@@ -60,8 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MySettingsPage(title: 'Settings')
-        ),
+            builder: (context) => MySettingsPage(title: 'Settings')),
       );
     });
   }
@@ -71,8 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => MyControlsPage(title: 'Controls')
-        ),
+            builder: (context) => MyControlsPage(title: 'Controls')),
       );
     });
   }
@@ -127,55 +124,54 @@ class _MyGamePageState extends State<MyGamePage> {
   var num2 = 1;
   var mainNum = 2;
 
-  String n1 = "1";
-  String n2 = "1";
-  String mn = "2";
+  var n1Text = false;
+  var n2Text = false;
+  var n3Text = false;
 
   Color bgCol = Color.fromARGB(255, 211, 47, 47);
 
   Widget build(BuildContext context) {
     bool checkWin() {
-      if((op == "+") && (mainNum==num1+num2)){
+      if ((op == "+") && (mainNum == num1 + num2)) {
         return true;
       }
 
-      if((op == "-") && (mainNum==num1-num2)){
+      if ((op == "-") && (mainNum == num1 - num2)) {
         return true;
       }
       return false;
     }
 
-    void reset() {  
+    void reset() {
       int rng = Random().nextInt(2);
 
-      if(rng == 0){
+      if (rng == 0) {
         num1 = Random().nextInt(9) + 1;
-        num2 = Random().nextInt(num1)+1;
+        num2 = Random().nextInt(num1) + 1;
         mainNum = num1 - num2;
-      }
-
-      else {
+      } else {
         num1 = Random().nextInt(10);
         num2 = Random().nextInt(10);
         mainNum = num1 + num2;
       }
 
-      n1 = num1.toString();
-      n2 = num2.toString();
-      mn = mainNum.toString();
       op = " ";
     }
+
+    var num1String = num1.toString();
+    var num2String = num2.toString();
+    var mainNumString = mainNum.toString();
 
     void callBack() {
       print(op);
       setState(() {
-        if(checkWin() == true){
+        if (checkWin() == true) {
           setState(() {
             bgCol = Color.fromARGB(255, 27, 171, 27);
           });
 
           Future.delayed(const Duration(milliseconds: 500), () {
-          // Here you can write your code
+            // Here you can write your code
             setState(() {
               bgCol = Color.fromARGB(255, 211, 47, 47);
               reset();
@@ -187,79 +183,92 @@ class _MyGamePageState extends State<MyGamePage> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Game'),
-      ),
-      backgroundColor: bgCol,
-      body: Center(
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(flex:3),
-            MainNumCard(inText: mainNum.toString(),),
-            Spacer(flex:2),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(),
-                NumCard(inText: num1.toString(),),
-                Spacer(),
-                OpCard(inText: op),
-                Spacer(),
-                NumCard(inText: num2.toString(),),
-                Spacer()
-              ],
-            ),
-            Spacer(flex:4),
-            Column(
-              //mainAxisAlignment: MainAxisAlignment.center, 
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, 
-                  children: <Widget>[
-                    OpButton(
-                      inText: "-",
-                      tapDown: (){ callBack(); }
-                    ),
-                    SizedBox(
-                      height:20,
-                      width:20
-                    ),
-                    OpButton(
-                      inText: "+",
-                      tapDown: (){ callBack(); }
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height:20,
-                  width:20
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, 
-                  children: [
-                    OpButton(
-                      inText: "x",
-                      tapDown: (){ callBack(); }
-                    ),
-                    SizedBox(
-                      height:20,
-                      width:20
-                    ),
-                    OpButton(
-                      inText: "/",
-                      tapDown: (){ callBack(); }
-                    ),
-                  ],
-                )
-              ]
-            ),
-            Spacer(flex:3),
-          ]
+        appBar: AppBar(
+          title: const Text('Game'),
         ),
-      
-      )
-    );
+        backgroundColor: bgCol,
+        body: Center(
+          child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Spacer(flex: 3),
+                MainNumCard(
+                  inText: mainNum.toWords(),
+                ),
+                Spacer(flex: 2),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    NumCard(
+                        inText: num1.toWords(),
+                        tapDown: () {
+                          if (n1Text) {}
+                        }),
+                    Spacer(),
+                    OpCard(inText: op),
+                    Spacer(),
+                    NumCard(
+                        inText: num2String,
+                        tapDown: () {
+                          if (n2Text) {
+                            num2String = int.parse(num2String).toWords();
+                            n2Text = false;
+                            print("here True");
+                            print(n2Text);
+                            //print(num2String);
+                          } else {
+                            num2String = num2.toString();
+                            n2Text = true;
+                            print("here false");
+                            print(n2Text);
+                            //print(num2String);
+                          }
+                        }),
+                    Spacer()
+                  ],
+                ),
+                Spacer(flex: 4),
+                Column(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          OpButton(
+                              inText: "-",
+                              tapDown: () {
+                                callBack();
+                              }),
+                          SizedBox(height: 20, width: 20),
+                          OpButton(
+                              inText: "+",
+                              tapDown: () {
+                                callBack();
+                              }),
+                        ],
+                      ),
+                      SizedBox(height: 20, width: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OpButton(
+                              inText: "x",
+                              tapDown: () {
+                                callBack();
+                              }),
+                          SizedBox(height: 20, width: 20),
+                          OpButton(
+                              inText: "/",
+                              tapDown: () {
+                                callBack();
+                              }),
+                        ],
+                      )
+                    ]),
+                Spacer(flex: 3),
+              ]),
+        ));
   }
 }
 
