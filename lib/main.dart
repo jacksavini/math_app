@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -31,15 +32,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -125,19 +117,59 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
-  var op1 = "-";
-  var mainNum = "7";
-  var num1 = "3";
-  var num2 = "4";
   @override
+  var num1 = Random().nextInt(10);
+  var num2 = Random().nextInt(10);
+  var mainNum = 0;
+
   Widget build(BuildContext context) {
-    
-    callBack() {
+    mainNum = num1 + num2;
+
+    String n1 = num1.toString();
+    String n2 = num2.toString();
+    String mn = mainNum.toString();
+
+    bool checkWin() {
+      if((op == "+") && (mainNum==num1+num2)){
+        return true;
+      }
+
+      if((op == "-") && (mainNum==num1-num2)){
+        return true;
+      }
+      return false;
+    }
+
+    void reset() {  
+
+      int rng = Random().nextInt(2);
+
+      if(rng == 0){
+        num1 = Random().nextInt(10);
+        num2 = Random().nextInt(num1);
+        mainNum = num1 - num2;
+      }
+
+      else {
+        num1 = Random().nextInt(10);
+        num2 = Random().nextInt(10);
+        mainNum = num1 + num2;
+      }
+
+      n1 = num1.toString();
+      n2 = num2.toString();
+      mn = mainNum.toString();
+      op = "";
+    }
+
+    void callBack() {
       setState(() {
-        op1 = op;
+        if(checkWin() == true){
+          reset();
+        }
       });
     }
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Game'),
@@ -148,17 +180,17 @@ class _MyGamePageState extends State<MyGamePage> {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(flex:3),
-            MainNumCard(inText: mainNum,),
+            MainNumCard(inText: mn,),
             Spacer(flex:2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Spacer(),
-                NumCard(inText: num1,),
+                NumCard(inText: n1,),
                 Spacer(),
-                OpCard(inText: op1),
+                OpCard(inText: op),
                 Spacer(),
-                NumCard(inText: num2,),
+                NumCard(inText: n2,),
                 Spacer()
               ],
             ),

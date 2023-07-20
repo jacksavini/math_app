@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 var op = "-";
 
@@ -55,7 +54,7 @@ class MainNumCard extends StatelessWidget {
         child: Text(
           inText,
           style: const TextStyle(
-            fontSize: 100, 
+            fontSize: 90, 
             fontWeight: FontWeight.w800
           )
         )
