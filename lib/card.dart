@@ -25,31 +25,36 @@ class NumCard extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.w800))),
       ),
       onTap: () {
-        op = inText;
         this.tapDown();
-        print(op);
       },
     );
   }
 }
 
 class MainNumCard extends StatelessWidget {
-  const MainNumCard({super.key, required this.inText});
+  const MainNumCard({super.key, required this.inText, required this.tapDown});
   final String inText;
+  final Function tapDown;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Color.fromARGB(255, 255, 237, 77), width: 10),
+    return InkWell(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border:
+              Border.all(color: Color.fromARGB(255, 255, 237, 77), width: 10),
+        ),
+        height: 130,
+        width: 130,
+        child: FittedBox(
+            fit: BoxFit.contain,
+            child: Text(inText,
+                style: const TextStyle(fontWeight: FontWeight.w800))),
       ),
-      height: 130,
-      width: 130,
-      child: FittedBox(
-          fit: BoxFit.contain,
-          child: Text(inText,
-              style: const TextStyle(fontWeight: FontWeight.w800))),
+      onTap: () {
+        this.tapDown();
+      },
     );
   }
 }

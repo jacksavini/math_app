@@ -158,10 +158,6 @@ class _MyGamePageState extends State<MyGamePage> {
       op = " ";
     }
 
-    var num1String = num1.toString();
-    var num2String = num2.toString();
-    var mainNumString = mainNum.toString();
-
     void callBack() {
       print(op);
       setState(() {
@@ -193,7 +189,14 @@ class _MyGamePageState extends State<MyGamePage> {
               children: [
                 Spacer(flex: 3),
                 MainNumCard(
-                  inText: mainNum.toWords(),
+                  tapDown: () {
+                    if (n3Text) {
+                      setState(() => n3Text = false);
+                    } else {
+                      setState(() => n3Text = true);
+                    }
+                  },
+                  inText: n3Text ? mainNum.toString() : mainNum.toWords(),
                 ),
                 Spacer(flex: 2),
                 Row(
@@ -201,30 +204,28 @@ class _MyGamePageState extends State<MyGamePage> {
                   children: [
                     Spacer(),
                     NumCard(
-                        inText: num1.toWords(),
-                        tapDown: () {
-                          if (n1Text) {}
-                        }),
+                      tapDown: () {
+                        if (n1Text) {
+                          setState(() => n1Text = false);
+                        } else {
+                          setState(() => n1Text = true);
+                        }
+                      },
+                      inText: n1Text ? num1.toString() : num1.toWords(),
+                    ),
                     Spacer(),
                     OpCard(inText: op),
                     Spacer(),
                     NumCard(
-                        inText: num2String,
-                        tapDown: () {
-                          if (n2Text) {
-                            num2String = int.parse(num2String).toWords();
-                            n2Text = false;
-                            print("here True");
-                            print(n2Text);
-                            //print(num2String);
-                          } else {
-                            num2String = num2.toString();
-                            n2Text = true;
-                            print("here false");
-                            print(n2Text);
-                            //print(num2String);
-                          }
-                        }),
+                      tapDown: () {
+                        if (n2Text) {
+                          setState(() => n2Text = false);
+                        } else {
+                          setState(() => n2Text = true);
+                        }
+                      },
+                      inText: n2Text ? num2.toString() : num2.toWords(),
+                    ),
                     Spacer()
                   ],
                 ),
