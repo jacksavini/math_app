@@ -139,20 +139,33 @@ class _MyGamePageState extends State<MyGamePage> {
       if ((op == "-") && (mainNum == num1 - num2)) {
         return true;
       }
+
+      if ((op == "x") && (mainNum == num1 * num2)) {
+        return true;
+      }
+
       return false;
     }
 
     void reset() {
-      int rng = Random().nextInt(2);
+      int rng = Random().nextInt(3);
 
       if (rng == 0) {
         num1 = Random().nextInt(9) + 1;
         num2 = Random().nextInt(num1) + 1;
         mainNum = num1 - num2;
-      } else {
+      } 
+      
+      if (rng == 1) {
         num1 = Random().nextInt(10);
         num2 = Random().nextInt(10);
         mainNum = num1 + num2;
+      }
+
+      if (rng == 2) {
+        num1 = Random().nextInt(10);
+        num2 = Random().nextInt(10);
+        mainNum = num1 * num2;
       }
 
       op = " ";
