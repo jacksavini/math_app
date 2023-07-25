@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 bool mulable = false;
 bool divable = false;
-bool addable = false;
-bool minable = false;
+bool addable = true;
+bool minable = true;
 
 class OpToggle extends StatefulWidget {
   const OpToggle({super.key, required this.inText, required this.tapDown});
@@ -91,31 +91,21 @@ class _OpToggleState extends State<OpToggle> {
         if(numOps > 2){
           if(widget.inText == "+"){
             addable = !addable;
-            setCol();
-            this.widget.tapDown();
-            print(addable);
           }
 
           if(widget.inText == "-"){
             minable = !minable;
-            setCol();
-            this.widget.tapDown();
-            print(minable);
           }
 
           if(widget.inText == "x"){
             mulable = !mulable;
-            setCol();
-            this.widget.tapDown();
-            print(mulable);
           }
 
           if(widget.inText == "÷"){
             divable = !divable;
-            setCol();
-            this.widget.tapDown();
-            print(divable);
           }
+          setCol();
+          this.widget.tapDown();
         }
       },
     );

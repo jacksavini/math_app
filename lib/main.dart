@@ -86,23 +86,35 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Game Logo Here',
+              '',
             ),
-            ElevatedButton(
-              onPressed: _gamePage,
-              child: const Text('Continue'),
+            Container(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: _gamePage,
+                child: const Text('Continue'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: _gamePage,
-              child: const Text('New Game'),
+            Container(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: _gamePage,
+                child: const Text('New Game'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: _controlsPage,
-              child: const Text('How to Play'),
+            Container(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: _controlsPage,
+                child: const Text('How to Play'),
+              ),
             ),
-            ElevatedButton(
-              onPressed: _settingsPage,
-              child: const Text('Settings'),
+            Container(
+              width: 300,
+              child: ElevatedButton(
+                onPressed: _settingsPage,
+                child: const Text('Settings'),
+              ),
             ),
           ],
         ),
@@ -121,12 +133,12 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
-  var num1 = 1;
-  var num2 = 1;
-  var mainNum = 2;
+  var num1 = 0;
+  var num2 = 0;
+  var mainNum = 0;
 
-  bool mul = true;
-  bool div = true;
+  bool mul = false;
+  bool div = false;
   bool add = true;
   bool sub = true;
 
@@ -199,10 +211,7 @@ class _MyGamePageState extends State<MyGamePage> {
       op = " ";
     }
 
-    if(firstEq){
-      reset();
-      firstEq = false;
-    };
+    if(firstEq){ reset(); firstEq = false;}
 
     void callBack() {
       print(op);
@@ -399,6 +408,11 @@ class _MySettingsPageState extends State<MySettingsPage> {
 
     });
   }
+
+  bool voiceLines = false;
+
+  double volume = 0;
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -406,9 +420,76 @@ class _MySettingsPageState extends State<MySettingsPage> {
       ),
       body: Center(
           child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Spacer(flex: 1),
+
+                const Text(
+                  textAlign: TextAlign.center,
+                  "Voice Lines",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  )
+                ),
+                
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      textAlign: TextAlign.center,
+                      "OFF",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800,
+                        color: Color.fromARGB(255, 150, 150, 150),
+                      )
+                    ),
+
+                    SizedBox(
+                      width: 130,
+                      height: 100,
+                      child: FittedBox(
+                        fit: BoxFit.fill,
+                        child: Switch(
+                          value: voiceLines,
+                          activeColor: Colors.red,
+                          onChanged: (bool value) {
+                            setState((){
+                              voiceLines = value;
+                            });
+                          }
+                        ),
+                      )
+                    ),
+
+                    const Text(
+                      textAlign: TextAlign.center,
+                      "ON",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800,
+                        color: Color.fromARGB(255, 150, 150, 150),
+                      )
+                    )
+                  ]
+                ),
+                
+                Spacer(flex: 1),
+
+                const Text(
+                  "Operation Select",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  )
+                ),
+                
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     OpToggle(
                       inText: "+", 
@@ -420,7 +501,9 @@ class _MySettingsPageState extends State<MySettingsPage> {
                     ),
                   ]
                 ),
+                
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     OpToggle(
                       inText: "x", 
@@ -431,7 +514,36 @@ class _MySettingsPageState extends State<MySettingsPage> {
                       tapDown: () {callBack();},
                     ),
                   ]
-                )
+                ),
+                
+                Spacer(flex: 1),
+
+                const Text(
+                  "Sound Volume",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  )
+                ),
+                
+                Container(
+                  width: 300,
+                  child: Slider(
+                    value: volume,
+                    max: 100,
+                    divisions: 100,
+                    label: volume.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        volume = value;
+                      });
+                    },
+                  ),
+                ),
+                
+                Spacer(flex: 1),
               ]
           )
       )
