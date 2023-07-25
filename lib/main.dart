@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_app/card.dart';
+import 'package:math_app/settingsButtons.dart';
 import 'package:num_to_words/num_to_words.dart';
 import 'dart:math';
 import 'dart:async';
@@ -124,6 +125,11 @@ class _MyGamePageState extends State<MyGamePage> {
   var num2 = 1;
   var mainNum = 2;
 
+  bool mul = true;
+  bool div = true;
+  bool add = true;
+  bool sub = true;
+
   var n1Text = false;
   var n2Text = false;
   var n3Text = false;
@@ -131,6 +137,12 @@ class _MyGamePageState extends State<MyGamePage> {
   Color bgCol = Color.fromARGB(255, 211, 47, 47);
 
   Widget build(BuildContext context) {
+
+    mul = mulable;
+    div = divable;
+    add = addable;
+    sub = minable;
+
     bool checkWin() {
       if ((op == "+") && (mainNum == num1 + num2)) {
         return true;
@@ -144,28 +156,42 @@ class _MyGamePageState extends State<MyGamePage> {
         return true;
       }
 
+      if ((op == "÷") && (num1 == mainNum * num2)) {
+        return true;
+      }
+
       return false;
     }
 
     void reset() {
-      int rng = Random().nextInt(3);
+      int rng = Random().nextInt(4);
 
-      if (rng == 0) {
+      while(rng == 0 && !sub || rng == 1 && !add || rng == 2 && !mul || rng == 3 && !div){
+        rng = Random().nextInt(4);
+      }
+
+      if (rng == 0 && sub) {
         num1 = Random().nextInt(9) + 1;
         num2 = Random().nextInt(num1) + 1;
         mainNum = num1 - num2;
       } 
       
-      if (rng == 1) {
+      if (rng == 1 && add) {
         num1 = Random().nextInt(10);
         num2 = Random().nextInt(10);
         mainNum = num1 + num2;
       }
 
-      if (rng == 2) {
+      if (rng == 2 && mul) {
         num1 = Random().nextInt(10);
         num2 = Random().nextInt(10);
         mainNum = num1 * num2;
+      }
+
+      if (rng == 3 && div) {
+        num2 = Random().nextInt(9) + 1;
+        mainNum = Random().nextInt(9) + 1;
+        num1 = num2 * mainNum;
       }
 
       op = " ";
@@ -189,6 +215,74 @@ class _MyGamePageState extends State<MyGamePage> {
           });
         }
       });
+    }
+
+    List<Widget> _createRow1Children() {
+      List<Widget> r1 = [];
+      
+      if(add){ 
+        r1.add(
+          OpButton(
+            inText: "+",
+            tapDown: () {
+              callBack();
+            }
+          )
+        );
+      }
+
+      if(sub && add){
+        r1.add(
+          SizedBox(height: 20, width: 20)
+        );
+      }
+
+      if(sub){
+        r1.add(
+          OpButton(
+            inText: "-",
+            tapDown: () {
+              callBack();
+            }
+          )
+        );
+      }
+
+      return r1;
+    }
+
+    List<Widget> _createRow2Children() {
+      List<Widget> r2 = [];
+      
+      if(mul){ 
+        r2.add(
+          OpButton(
+            inText: "x",
+            tapDown: () {
+              callBack();
+            }
+          )
+        );
+      }
+
+      if(div && mul){
+        r2.add(
+          SizedBox(height: 20, width: 20)
+        );
+      }
+
+      if(div){
+        r2.add(
+          OpButton(
+            inText: "÷",
+            tapDown: () {
+              callBack();
+            }
+          )
+        );
+      }
+
+      return r2;
     }
 
     return Scaffold(
@@ -248,36 +342,12 @@ class _MyGamePageState extends State<MyGamePage> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          OpButton(
-                              inText: "-",
-                              tapDown: () {
-                                callBack();
-                              }),
-                          SizedBox(height: 20, width: 20),
-                          OpButton(
-                              inText: "+",
-                              tapDown: () {
-                                callBack();
-                              }),
-                        ],
+                        children: _createRow1Children(),
                       ),
                       SizedBox(height: 20, width: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OpButton(
-                              inText: "x",
-                              tapDown: () {
-                                callBack();
-                              }),
-                          SizedBox(height: 20, width: 20),
-                          OpButton(
-                              inText: "/",
-                              tapDown: () {
-                                callBack();
-                              }),
-                        ],
+                        children: _createRow2Children()
                       )
                     ]),
                 Spacer(flex: 3),
@@ -317,11 +387,47 @@ class MySettingsPage extends StatefulWidget {
 
 class _MySettingsPageState extends State<MySettingsPage> {
   @override
+  void callBack() {
+    setState(() {
+
+    });
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
       ),
+      body: Center(
+          child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    OpToggle(
+                      inText: "+", 
+                      tapDown: () {callBack();},
+                    ),
+                    OpToggle(
+                      inText: "-", 
+                      tapDown: () {callBack();},
+                    ),
+                  ]
+                ),
+                Row(
+                  children: [
+                    OpToggle(
+                      inText: "x", 
+                      tapDown: () {callBack();},
+                    ),
+                    OpToggle(
+                      inText: "÷", 
+                      tapDown: () {callBack();},
+                    ),
+                  ]
+                )
+              ]
+          )
+      )
     );
   }
 }
