@@ -130,6 +130,8 @@ class _MyGamePageState extends State<MyGamePage> {
   bool add = true;
   bool sub = true;
 
+  bool firstEq = true;
+
   var n1Text = false;
   var n2Text = false;
   var n3Text = false;
@@ -196,6 +198,11 @@ class _MyGamePageState extends State<MyGamePage> {
 
       op = " ";
     }
+
+    if(firstEq){
+      reset();
+      firstEq = false;
+    };
 
     void callBack() {
       print(op);
