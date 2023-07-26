@@ -6,6 +6,8 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:math';
 import 'dart:async';
 
+var tts = true;
+
 void main() {
   runApp(MyApp());
 }
@@ -134,6 +136,14 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
+  final FlutterTts flutterTts = FlutterTts();
+
+  speak(String text) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1);
+    await flutterTts.speak(text);
+  }
+
   var num1 = 0;
   var num2 = 0;
   var mainNum = 0;
@@ -148,6 +158,8 @@ class _MyGamePageState extends State<MyGamePage> {
   var n1Text = false;
   var n2Text = false;
   var n3Text = false;
+
+  var opCode = {"+": "plus", "-": "minus", "x": "times", "÷": "divided by"};
 
   Color bgCol = Color.fromARGB(255, 211, 47, 47);
 
@@ -223,11 +235,17 @@ class _MyGamePageState extends State<MyGamePage> {
       print(op);
       setState(() {
         if (checkWin() == true) {
+          var temp = opCode[op] ?? 'default';
+          speak(num1.toWords() +
+              temp +
+              num2.toWords() +
+              "equals" +
+              mainNum.toWords());
           setState(() {
             bgCol = Color.fromARGB(255, 27, 171, 27);
           });
 
-          Future.delayed(const Duration(milliseconds: 500), () {
+          Future.delayed(const Duration(milliseconds: 1500), () {
             // Here you can write your code
             setState(() {
               bgCol = Color.fromARGB(255, 211, 47, 47);
@@ -307,6 +325,7 @@ class _MyGamePageState extends State<MyGamePage> {
                       setState(() => n3Text = false);
                     } else {
                       setState(() => n3Text = true);
+                      if (tts) speak(mainNum.toWords());
                     }
                   },
                   inText: n3Text ? mainNum.toString() : mainNum.toWords(),
@@ -322,6 +341,7 @@ class _MyGamePageState extends State<MyGamePage> {
                           setState(() => n1Text = false);
                         } else {
                           setState(() => n1Text = true);
+                          if (tts) speak(num1.toWords());
                         }
                       },
                       inText: n1Text ? num1.toString() : num1.toWords(),
@@ -335,6 +355,7 @@ class _MyGamePageState extends State<MyGamePage> {
                           setState(() => n2Text = false);
                         } else {
                           setState(() => n2Text = true);
+                          if (tts) speak(num2.toWords());
                         }
                       },
                       inText: n2Text ? num2.toString() : num2.toWords(),
