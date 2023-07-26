@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:math_app/card.dart';
 import 'package:math_app/settingsButtons.dart';
 import 'package:num_to_words/num_to_words.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:math';
 import 'dart:async';
 
@@ -151,7 +152,6 @@ class _MyGamePageState extends State<MyGamePage> {
   Color bgCol = Color.fromARGB(255, 211, 47, 47);
 
   Widget build(BuildContext context) {
-
     mul = mulable;
     div = divable;
     add = addable;
@@ -180,7 +180,10 @@ class _MyGamePageState extends State<MyGamePage> {
     void reset() {
       int rng = Random().nextInt(4);
 
-      while(rng == 0 && !sub || rng == 1 && !add || rng == 2 && !mul || rng == 3 && !div){
+      while (rng == 0 && !sub ||
+          rng == 1 && !add ||
+          rng == 2 && !mul ||
+          rng == 3 && !div) {
         rng = Random().nextInt(4);
       }
 
@@ -188,8 +191,8 @@ class _MyGamePageState extends State<MyGamePage> {
         num1 = Random().nextInt(9) + 1;
         num2 = Random().nextInt(num1) + 1;
         mainNum = num1 - num2;
-      } 
-      
+      }
+
       if (rng == 1 && add) {
         num1 = Random().nextInt(10);
         num2 = Random().nextInt(10);
@@ -211,7 +214,10 @@ class _MyGamePageState extends State<MyGamePage> {
       op = " ";
     }
 
-    if(firstEq){ reset(); firstEq = false;}
+    if (firstEq) {
+      reset();
+      firstEq = false;
+    }
 
     void callBack() {
       print(op);
@@ -235,33 +241,25 @@ class _MyGamePageState extends State<MyGamePage> {
 
     List<Widget> _createRow1Children() {
       List<Widget> r1 = [];
-      
-      if(add){ 
-        r1.add(
-          OpButton(
+
+      if (add) {
+        r1.add(OpButton(
             inText: "+",
             tapDown: () {
               callBack();
-            }
-          )
-        );
+            }));
       }
 
-      if(sub && add){
-        r1.add(
-          SizedBox(height: 20, width: 20)
-        );
+      if (sub && add) {
+        r1.add(SizedBox(height: 20, width: 20));
       }
 
-      if(sub){
-        r1.add(
-          OpButton(
+      if (sub) {
+        r1.add(OpButton(
             inText: "-",
             tapDown: () {
               callBack();
-            }
-          )
-        );
+            }));
       }
 
       return r1;
@@ -269,33 +267,25 @@ class _MyGamePageState extends State<MyGamePage> {
 
     List<Widget> _createRow2Children() {
       List<Widget> r2 = [];
-      
-      if(mul){ 
-        r2.add(
-          OpButton(
+
+      if (mul) {
+        r2.add(OpButton(
             inText: "x",
             tapDown: () {
               callBack();
-            }
-          )
-        );
+            }));
       }
 
-      if(div && mul){
-        r2.add(
-          SizedBox(height: 20, width: 20)
-        );
+      if (div && mul) {
+        r2.add(SizedBox(height: 20, width: 20));
       }
 
-      if(div){
-        r2.add(
-          OpButton(
+      if (div) {
+        r2.add(OpButton(
             inText: "÷",
             tapDown: () {
               callBack();
-            }
-          )
-        );
+            }));
       }
 
       return r2;
@@ -362,9 +352,8 @@ class _MyGamePageState extends State<MyGamePage> {
                       ),
                       SizedBox(height: 20, width: 20),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: _createRow2Children()
-                      )
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _createRow2Children())
                     ]),
                 Spacer(flex: 3),
               ]),
@@ -404,9 +393,7 @@ class MySettingsPage extends StatefulWidget {
 class _MySettingsPageState extends State<MySettingsPage> {
   @override
   void callBack() {
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   bool voiceLines = false;
@@ -415,138 +402,112 @@ class _MySettingsPageState extends State<MySettingsPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
-      body: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(flex: 1),
-
-                const Text(
-                  textAlign: TextAlign.center,
-                  "Voice Lines",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  )
-                ),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      textAlign: TextAlign.center,
-                      "OFF",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800,
-                        color: Color.fromARGB(255, 150, 150, 150),
-                      )
-                    ),
-
-                    SizedBox(
-                      width: 130,
-                      height: 100,
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Switch(
-                          value: voiceLines,
-                          activeColor: Colors.red,
-                          onChanged: (bool value) {
-                            setState((){
-                              voiceLines = value;
-                            });
-                          }
-                        ),
-                      )
-                    ),
-
-                    const Text(
-                      textAlign: TextAlign.center,
-                      "ON",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800,
-                        color: Color.fromARGB(255, 150, 150, 150),
-                      )
-                    )
-                  ]
-                ),
-                
-                Spacer(flex: 1),
-
-                const Text(
-                  "Operation Select",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  )
-                ),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    OpToggle(
-                      inText: "+", 
-                      tapDown: () {callBack();},
-                    ),
-                    OpToggle(
-                      inText: "-", 
-                      tapDown: () {callBack();},
-                    ),
-                  ]
-                ),
-                
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    OpToggle(
-                      inText: "x", 
-                      tapDown: () {callBack();},
-                    ),
-                    OpToggle(
-                      inText: "÷", 
-                      tapDown: () {callBack();},
-                    ),
-                  ]
-                ),
-                
-                Spacer(flex: 1),
-
-                const Text(
-                  "Sound Volume",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    color: Color.fromARGB(255, 0, 0, 0),
-                  )
-                ),
-                
-                Container(
-                  width: 300,
-                  child: Slider(
-                    value: volume,
-                    max: 100,
-                    divisions: 100,
-                    label: volume.round().toString(),
-                    onChanged: (double value) {
-                      setState(() {
-                        volume = value;
-                      });
-                    },
-                  ),
-                ),
-                
-                Spacer(flex: 1),
-              ]
-          )
-      )
-    );
+        appBar: AppBar(
+          title: const Text('Settings'),
+        ),
+        body: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Spacer(flex: 1),
+          const Text(
+              textAlign: TextAlign.center,
+              "Voice Lines",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w800,
+                color: Color.fromARGB(255, 0, 0, 0),
+              )),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Text(
+                textAlign: TextAlign.center,
+                "OFF",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: Color.fromARGB(255, 150, 150, 150),
+                )),
+            SizedBox(
+                width: 130,
+                height: 100,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Switch(
+                      value: voiceLines,
+                      activeColor: Colors.red,
+                      onChanged: (bool value) {
+                        setState(() {
+                          voiceLines = value;
+                        });
+                      }),
+                )),
+            const Text(
+                textAlign: TextAlign.center,
+                "ON",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: Color.fromARGB(255, 150, 150, 150),
+                ))
+          ]),
+          Spacer(flex: 1),
+          const Text("Operation Select",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w800,
+                color: Color.fromARGB(255, 0, 0, 0),
+              )),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            OpToggle(
+              inText: "+",
+              tapDown: () {
+                callBack();
+              },
+            ),
+            OpToggle(
+              inText: "-",
+              tapDown: () {
+                callBack();
+              },
+            ),
+          ]),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            OpToggle(
+              inText: "x",
+              tapDown: () {
+                callBack();
+              },
+            ),
+            OpToggle(
+              inText: "÷",
+              tapDown: () {
+                callBack();
+              },
+            ),
+          ]),
+          Spacer(flex: 1),
+          const Text("Sound Volume",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w800,
+                color: Color.fromARGB(255, 0, 0, 0),
+              )),
+          Container(
+            width: 300,
+            child: Slider(
+              value: volume,
+              max: 100,
+              divisions: 100,
+              label: volume.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  volume = value;
+                });
+              },
+            ),
+          ),
+          Spacer(flex: 1),
+        ])));
   }
 }
