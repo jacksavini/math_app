@@ -159,9 +159,9 @@ class _MyGamePageState extends State<MyGamePage> {
 
   bool firstEq = true;
 
-  var n1Text = false;
-  var n2Text = false;
-  var n3Text = false;
+  var n1Text = true;
+  var n2Text = true;
+  var n3Text = true;
 
   var opCode = {"+": "plus", "-": "minus", "x": "times", "÷": "divided by"};
 
@@ -422,8 +422,8 @@ class _MyControlsPageState extends State<MyControlsPage> {
           Spacer(flex: 1),
           OpCard(inText: op),
           Spacer(flex: 1),
-          Text("Choose the correct operation that, when applied to the " + 
-          "blue circled numbers, equals the yellow square number.", 
+          Text("Choose the correct operation that will make the blue circle numbers " + 
+          "equal to the yellow square number", 
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 25,
@@ -453,7 +453,7 @@ class _MyControlsPageState extends State<MyControlsPage> {
             ],
           ),
           Spacer(flex: 1),
-          Text("When you get the answer, move on to the next problem.", 
+          Text("When you get the correct answer, move on to the next problem", 
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 25,
