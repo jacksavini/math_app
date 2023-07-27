@@ -138,11 +138,13 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
-  speak(String text) async {
+  speak(String text, bool inWords) async {
     if(tts){
       await flutterTts.setLanguage("en-US");
       await flutterTts.setPitch(1.0);
-      await flutterTts.speak(text);
+      if(!inWords){
+        await flutterTts.speak(text);
+      }
     }
   }
 
@@ -238,11 +240,11 @@ class _MyGamePageState extends State<MyGamePage> {
       setState(() {
         if (checkWin() == true) {
           var temp = opCode[op] ?? 'default';
-          speak(num1.toWords() +
-              temp +
-              num2.toWords() +
-              "equals" +
-              mainNum.toWords());
+          speak(num1.toWords() + " " +
+              temp + " " +
+              num2.toWords() + " " +
+              "equals" + " " +
+              mainNum.toWords(), true);
           setState(() {
             bgCol = Color.fromARGB(255, 27, 171, 27);
           });
@@ -325,7 +327,7 @@ class _MyGamePageState extends State<MyGamePage> {
                   tapDown: () {
                     setState(() {
                       n3Text = !n3Text;
-                      speak(mainNum.toWords());
+                      speak(mainNum.toWords(), n3Text);
                       });
                   },
                   inText: n3Text ? mainNum.toString() : mainNum.toWords(),
@@ -339,7 +341,7 @@ class _MyGamePageState extends State<MyGamePage> {
                       tapDown: () {
                         setState(() {
                           n1Text = !n1Text;
-                          speak(num1.toWords());
+                          speak(num1.toWords(), n1Text);
                           });
                       },
                       inText: n1Text ? num1.toString() : num1.toWords(),
@@ -351,7 +353,7 @@ class _MyGamePageState extends State<MyGamePage> {
                       tapDown: () {
                         setState(() {
                           n2Text = !n2Text;
-                          speak(num2.toWords());
+                          speak(num2.toWords(), n2Text);
                           });
                       },
                       inText: n2Text ? num2.toString() : num2.toWords(),
