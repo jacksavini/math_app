@@ -244,7 +244,7 @@ class _MyGamePageState extends State<MyGamePage> {
               temp + " " +
               num2.toWords() + " " +
               "equals" + " " +
-              mainNum.toWords(), true);
+              mainNum.toWords(), false);
           setState(() {
             bgCol = Color.fromARGB(255, 27, 171, 27);
           });
