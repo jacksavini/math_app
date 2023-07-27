@@ -6,7 +6,9 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'dart:math';
 import 'dart:async';
 
+FlutterTts flutterTts = FlutterTts();
 var tts = true;
+var ttsVolume = 1.0;
 
 void main() {
   runApp(MyApp());
@@ -136,12 +138,12 @@ class MyGamePage extends StatefulWidget {
 }
 
 class _MyGamePageState extends State<MyGamePage> {
-  final FlutterTts flutterTts = FlutterTts();
-
   speak(String text) async {
-    await flutterTts.setLanguage("en-US");
-    await flutterTts.setPitch(1);
-    await flutterTts.speak(text);
+    if(tts){
+      await flutterTts.setLanguage("en-US");
+      await flutterTts.setPitch(1.0);
+      await flutterTts.speak(text);
+    }
   }
 
   var num1 = 0;
@@ -321,12 +323,10 @@ class _MyGamePageState extends State<MyGamePage> {
                 Spacer(flex: 3),
                 MainNumCard(
                   tapDown: () {
-                    if (n3Text) {
-                      setState(() => n3Text = false);
-                    } else {
-                      setState(() => n3Text = true);
-                      if (tts) speak(mainNum.toWords());
-                    }
+                    setState(() {
+                      n3Text = !n3Text;
+                      speak(mainNum.toWords());
+                      });
                   },
                   inText: n3Text ? mainNum.toString() : mainNum.toWords(),
                 ),
@@ -337,12 +337,10 @@ class _MyGamePageState extends State<MyGamePage> {
                     Spacer(),
                     NumCard(
                       tapDown: () {
-                        if (n1Text) {
-                          setState(() => n1Text = false);
-                        } else {
-                          setState(() => n1Text = true);
-                          if (tts) speak(num1.toWords());
-                        }
+                        setState(() {
+                          n1Text = !n1Text;
+                          speak(num1.toWords());
+                          });
                       },
                       inText: n1Text ? num1.toString() : num1.toWords(),
                     ),
@@ -351,12 +349,10 @@ class _MyGamePageState extends State<MyGamePage> {
                     Spacer(),
                     NumCard(
                       tapDown: () {
-                        if (n2Text) {
-                          setState(() => n2Text = false);
-                        } else {
-                          setState(() => n2Text = true);
-                          if (tts) speak(num2.toWords());
-                        }
+                        setState(() {
+                          n2Text = !n2Text;
+                          speak(num2.toWords());
+                          });
                       },
                       inText: n2Text ? num2.toString() : num2.toWords(),
                     ),
@@ -417,10 +413,6 @@ class _MySettingsPageState extends State<MySettingsPage> {
     setState(() {});
   }
 
-  bool voiceLines = false;
-
-  double volume = 0;
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -453,11 +445,11 @@ class _MySettingsPageState extends State<MySettingsPage> {
                 child: FittedBox(
                   fit: BoxFit.fill,
                   child: Switch(
-                      value: voiceLines,
+                      value: tts,
                       activeColor: Colors.red,
                       onChanged: (bool value) {
                         setState(() {
-                          voiceLines = value;
+                          tts = value;
                         });
                       }),
                 )),
@@ -517,13 +509,15 @@ class _MySettingsPageState extends State<MySettingsPage> {
           Container(
             width: 300,
             child: Slider(
-              value: volume,
+              value: ttsVolume,
               max: 100,
               divisions: 100,
-              label: volume.round().toString(),
+              label: ttsVolume.round().toString(),
               onChanged: (double value) {
                 setState(() {
-                  volume = value;
+                  ttsVolume = value;
+                  flutterTts.setVolume(ttsVolume/100.0);
+                  
                 });
               },
             ),
