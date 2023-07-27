@@ -396,6 +396,74 @@ class _MyControlsPageState extends State<MyControlsPage> {
       appBar: AppBar(
         title: const Text('Controls'),
       ),
+      body: Center( 
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          Spacer(flex: 1),
+          Text("Click the buttons to fill in the blank square", 
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w800,
+              color: Color.fromARGB(255, 0, 0, 0),
+            )
+          ),
+          Spacer(flex: 1),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            OpButtonTut(inText: "+", tapDown: (){setState((){});}),
+            OpButtonTut(inText: "-", tapDown: (){setState((){});}),
+            OpButtonTut(inText: "x", tapDown: (){setState((){});}),
+            OpButtonTut(inText: "÷", tapDown: (){setState((){});}),
+            ],
+          ),
+          Spacer(flex: 1),
+          OpCard(inText: op),
+          Spacer(flex: 1),
+          Text("Choose the correct operation that, when applied to the " + 
+          "blue circled numbers, equals the yellow square number.", 
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w800,
+              color: Color.fromARGB(255, 0, 0, 0),
+            )
+          ),
+          Spacer(flex: 1),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            NumCardTut(inText: "X", tapDown: (){}),
+            Text("    "),
+            OpCardTut(inText: "?"),
+            Text("    "),
+            NumCardTut(inText: "Y", tapDown: (){}),
+            Text(" "),
+            Text("=", 
+              style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.w800,
+                  color: Color.fromARGB(255, 0, 0, 0),
+              )
+            ),
+            Text(" "),
+            MainNumCardTut(inText: "Z", tapDown: (){})
+            ],
+          ),
+          Spacer(flex: 1),
+          Text("When you get the answer, move on to the next problem.", 
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w800,
+                color: Color.fromARGB(255, 0, 0, 0),
+            )
+          ),
+          Spacer(flex: 1),
+        ],)
+      )
     );
   }
 }
