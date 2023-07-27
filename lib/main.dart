@@ -8,7 +8,7 @@ import 'dart:async';
 
 FlutterTts flutterTts = FlutterTts();
 var tts = true;
-var ttsVolume = 1.0;
+var ttsVolume = 100.0;
 
 void main() {
   runApp(MyApp());
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.red,
       ),
-      home: MyHomePage(title: 'Math: The Game'),
+      home: MyHomePage(title: ''),
     );
   }
 }
@@ -90,21 +90,49 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              '',
-            ),
+            Spacer(flex: 2),
             Container(
-              width: 300,
-              child: ElevatedButton(
-                onPressed: _gamePage,
-                child: const Text('Continue'),
+              padding: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 247, 93),
+                borderRadius: BorderRadius.circular(90),
+                border: Border.all(
+                  color: Color.fromARGB(255, 67, 67, 204), 
+                  width: 10
+                ),
+              ),
+              child: Column(
+                children: [
+                  const Text(
+                    'Smooth',
+                    style: TextStyle(
+                      fontSize: 60,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w900,
+                      color: Color.fromARGB(255, 67, 67, 204),
+                      fontFamily: 'Raleway',
+                    )
+                  ),
+                  const Text(
+                    'Operators',
+                    style: TextStyle(
+                      fontSize: 60,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w900,
+                      color: Color.fromARGB(255, 67, 67, 204),
+                      fontFamily: 'Raleway',
+                    )
+                  ),
+                ],
               ),
             ),
+            
+            Spacer(flex: 1),
             Container(
               width: 300,
               child: ElevatedButton(
                 onPressed: _gamePage,
-                child: const Text('New Game'),
+                child: const Text('Play Game'),
               ),
             ),
             Container(
@@ -121,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text('Settings'),
               ),
             ),
+            Spacer(flex: 2),
           ],
         ),
       ),
