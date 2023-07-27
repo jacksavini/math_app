@@ -192,6 +192,8 @@ class _MyGamePageState extends State<MyGamePage> {
   var n2Text = true;
   var n3Text = true;
 
+  int pauseLength = 1500;
+
   var opCode = {"+": "plus", "-": "minus", "x": "times", "÷": "divided by"};
 
   Color bgCol = Color.fromARGB(255, 211, 47, 47);
@@ -278,7 +280,9 @@ class _MyGamePageState extends State<MyGamePage> {
             bgCol = Color.fromARGB(255, 27, 171, 27);
           });
 
-          Future.delayed(const Duration(milliseconds: 1500), () {
+
+          pauseLength = tts ? 2500 : 1000;
+          Future.delayed(Duration(milliseconds: pauseLength), () {
             // Here you can write your code
             setState(() {
               bgCol = Color.fromARGB(255, 211, 47, 47);
