@@ -393,6 +393,7 @@ class _MyControlsPageState extends State<MyControlsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 221, 77, 77),
       appBar: AppBar(
         title: const Text('Controls'),
       ),
@@ -406,17 +407,22 @@ class _MyControlsPageState extends State<MyControlsPage> {
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w800,
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: Color.fromARGB(255, 255, 255, 255),
             )
           ),
           Spacer(flex: 1),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+            Spacer(flex: 1),
             OpButtonTut(inText: "+", tapDown: (){setState((){});}),
+            Spacer(flex: 1),
             OpButtonTut(inText: "-", tapDown: (){setState((){});}),
+            Spacer(flex: 1),
             OpButtonTut(inText: "x", tapDown: (){setState((){});}),
+            Spacer(flex: 1),
             OpButtonTut(inText: "÷", tapDown: (){setState((){});}),
+            Spacer(flex: 1),
             ],
           ),
           Spacer(flex: 1),
@@ -428,7 +434,7 @@ class _MyControlsPageState extends State<MyControlsPage> {
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w800,
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: Color.fromARGB(255, 255, 255, 255),
             )
           ),
           Spacer(flex: 1),
@@ -445,7 +451,7 @@ class _MyControlsPageState extends State<MyControlsPage> {
               style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.w800,
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 255, 255, 255),
               )
             ),
             Text(" "),
@@ -453,12 +459,12 @@ class _MyControlsPageState extends State<MyControlsPage> {
             ],
           ),
           Spacer(flex: 1),
-          Text("When you get the correct answer, move on to the next problem", 
+          Text("When you get the correct answer move on to the next problem", 
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.w800,
-                color: Color.fromARGB(255, 0, 0, 0),
+                color: Color.fromARGB(255, 255, 255, 255),
             )
           ),
           Spacer(flex: 1),
